@@ -13,8 +13,14 @@ float Random::randReal()
 	{
 		seed1 *= 2;
 		seed2 *= 2;
-		if (seed1 > MAX)seed1 = MAX;
-		if (seed2 > MAX)seed2 = MAX;
+		if (seed1 > MAX)
+		{
+			seed1 = MAX;
+		}
+		if (seed2 > MAX)
+		{
+			seed2 = MAX;
+		}
 		first = 0;
 	}
 	//возбуждение генератора
@@ -23,9 +29,15 @@ float Random::randReal()
 		randReal();
 	}
 	c = seed1 + seed2;
-	if (c > MAX)c = MAX;
+	if (c > MAX) 
+	{
+		c = MAX; 
+	}
 	c *= 2;
-	if (c > MAX)c = MAX;
+	if (c > MAX) 
+	{
+		c = MAX;
+	}
 	seed1 = seed2;
 	seed2 = c;
 	return (double)c / 32767.0;

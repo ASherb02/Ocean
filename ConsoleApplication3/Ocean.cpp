@@ -28,7 +28,7 @@ void Ocean::initCell(void)
 {
 	addEmptyCells();
 
-	/*std::cout << "\n\n Enter number of obstacles (default=75):";
+	std::cout << "\n\n Enter number of obstacles (default=75):";
 	std::cout.flush();
 	std::cin >> numObstacles;
 	if (numObstacles == size)numObstacles = size;
@@ -50,7 +50,7 @@ void Ocean::initCell(void)
 		numPrey = size - numObstacles - numPredators;
 	std::cout << "\nNumber prey accepted =" << numPrey<<"\n\n";
 	std::cout.flush();
-	*/
+
 	addObstacles();
 	/*addPredators();
 	addPrey();*/
