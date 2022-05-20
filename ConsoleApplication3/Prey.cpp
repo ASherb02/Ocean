@@ -1,4 +1,4 @@
-/*#include "Prey.h"
+#include "Prey.h"
 
 void Prey::moveFrom(Coordinate from, Coordinate to)
 {
@@ -9,21 +9,20 @@ void Prey::moveFrom(Coordinate from, Coordinate to)
 		toCell = getCellAt(to);
 		delete toCell;
 		setOffset(to);
-		assignCellAt(to, this);
+		assignCellAt(to);
 		if (timeToReproduce <= 0)
 		{
 			timeToReproduce = TimeToReproduce;
 			assignCellAt(from, reproduce(from));
 		}
 		else
-			assignCellAt(from, new Cell(from));
+			assignCellAt(from,this);
 	}
 }
 
 Cell* Prey::reproduce(Coordinate anOffset)
 {
-	Prey* temp = new Prey(anOffset);
-	Ocean1->setNumPrey(Ocean1->getNumPrey() + 1);
+	Prey* temp = new Prey(anOffset, &_owner );
+	_owner.setNumPrey(_owner.getNumPrey() + 1);
 	return (Cell*)temp;
 }
-*/

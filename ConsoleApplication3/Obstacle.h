@@ -5,11 +5,14 @@
 class Obstacle : public Cell
 {
 public:
-	Obstacle(const Coordinate& Coord) : Cell(Coord)
+	Obstacle(const Coordinate& Coord,Ocean* owner) : Cell(Coord, owner)
 	{
-		Image = ObstacleImage;
+		_image = ObstacleImage;
 	}
+	void process()
+	{
 
+	}
 	virtual ~Obstacle() {}
 };
 #endif

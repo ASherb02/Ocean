@@ -1,4 +1,4 @@
-/*#ifndef PreyDefined
+#ifndef PreyDefined
 #define PreyDefined
 #include "Cell.h"
 
@@ -12,27 +12,29 @@ protected:
 	virtual Cell* reproduce(Coordinate anOffset);
 
 public:
-	Prey(Coordinate& aCoord) :Cell(aCoord)
+	Prey(Coordinate& aCoord,Ocean* owner) :Cell(aCoord,owner)
 	{
 		timeToReproduce = TimeToReproduce;
-		Image = DefaultPreyImage;
+		_image = DefaultPreyImage;
 
 	}
 
 	virtual ~Prey(void) {};
 
-	virtual void procces(void)
+	virtual void process()
 	{
 		Coordinate toCoord;
 		toCoord = getEmptyNeighborCoord();
-		moveFrom(offset, toCoord);
-
+		moveFrom(_offset, toCoord);
 	}
 
+	char getImage()
+	{
+		return _image;
+	}
 };
 
 
 #endif // !PreyDefined
-*/
 
 

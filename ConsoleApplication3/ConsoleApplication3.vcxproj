@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="ConsoleApplication3.cpp" />
+    <ClCompile Include="ConsoleOceanViewer.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Ocean.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="ConsoleOceanViewer.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Obstacle.h" />

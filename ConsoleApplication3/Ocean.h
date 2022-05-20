@@ -2,6 +2,7 @@
 #define OceanDefined
 #include "Constants.h"
 #include "Coordinate.h"
+#include "ConsoleOceanViewer.h"
 #include "Random.h"
 #pragma once
 
@@ -9,6 +10,7 @@ class Cell;
 
 class Ocean
 {
+	// TODO: Убрать friend class
 	friend class Cell;
 
 private:
@@ -20,30 +22,32 @@ private:
 	unsigned numObstacles;
 	Random random;
 	Cell* cells[MaxRows][MaxCols];
+	ConsoleOceanViewer viewOwner;
 		
     //Инициализация
 	void initCell();
 	void addEmptyCells();
 	void addObstacles();
-	//void addPredators();
+	void addPredators();
 	void addPrey();
 	Coordinate getEmptyCellCoord();
-
-	//Отображение
-	void displayBorder();
-	void displayCells();
-	void displayStats(int);
 
 public:
 
 	//Доступ
-	unsigned getNumPrey(void) { return numPrey; }
-	unsigned getNumPredators(void) { return numPredators; }
+	unsigned getNumPrey() { return numPrey; }
+	unsigned getNumPredators() { return numPredators; }
+	unsigned getNumCols() { return numCols; }
+	unsigned getNumRows() { return numRows; }
+	unsigned getNumObstacles() { return numObstacles; }
+	Cell* getCells(unsigned _Rows, unsigned _Cols) { return cells[_Rows][_Cols]; }
 	void setNumPrey(unsigned aNumber) { numPrey = aNumber; }
 	void setNumPredators(unsigned aNumber) { numPredators = aNumber; }
+	//char getChar(Coordinate);
+
 
 	//Инициализация
-	void initialize(void);
+	void initialize(Ocean&);
 
 	//Запуск
 	void run(void);

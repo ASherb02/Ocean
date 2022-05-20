@@ -4,81 +4,113 @@
 //поиск соседей
 Cell* Cell::getCellAt(Coordinate aCoord)
 {
-	return Ocean1->cells[aCoord.getY()][aCoord.getX()];
+	return _owner.cells[aCoord.getY()][aCoord.getX()];
 }
 
+void Cell::assignCellAt(Coordinate aCoord)
+{
+	_owner.cells[aCoord.getY()][aCoord.getX()] = nullptr;
+}
 void Cell::assignCellAt(Coordinate aCoord, Cell* aCell)
 {
-	Ocean1->cells[aCoord.getY()][aCoord.getX()]=aCell;
+	_owner.cells[aCoord.getY()][aCoord.getX()]=aCell;
 }
 
-Cell* Cell::getNeighborWithImage(char anImage)
+// кол-во                                                      соседи
+/*int*/ Cell* Cell::getNeighborWithImage(char anImage /*, Cell* neighbors[4] */)
 {
 	Cell* neighbors[4];
 	unsigned count = 0;
 
-	if (north()->getImage() == anImage) neighbors[count++] = north();
-	if(south()->getImage()==anImage) neighbors[count++] = south();
-	if (east()->getImage() == anImage) neighbors[count++] = east();
-	if (west()->getImage() == anImage) neighbors[count++] = west();
+	if (anImage == north())//сравнивает image с image c кординатами north
+		neighbors[count++] = ;
+	/*if (anImage == west(this))
+		neighbors[count++] = this;
+	if (anImage == east(this))
+		neighbors[count++] = this;
+	if (anImage == south(this))
+		neighbors[count++] = ;*/
 	if (count == 0)
 		return this;
 	else
-		return neighbors[Ocean1->random.NextBetween(0, count - 1)];
+		return neighbors[_owner.random.NextBetween(0, count - 1)];
+		
 }
 
 Coordinate Cell::getEmptyNeighborCoord()
 {
+	std::cout << "getEmptyNeighborCoord ";
+	std::cout << "X:" << this->_offset.getX() << " ";
+	std::cout << "Y:" << this->_offset.getY();
+
 	return getNeighborWithImage(DefaultImage)->getOffset();
 }
 
 Coordinate Cell::getPreyNeighborCoord()
 {
+	std::cout << ":getPreyNeighborCoord ";
+	std::cout << "image:" << this->_image<<" ";
+	std::cout<<"X:" << this->_offset.getX() << " ";
+	std::cout<<"Y:" << this->_offset.getY();
+
 	return getNeighborWithImage(DefaultPreyImage)->getOffset();
 }
 
-Cell* Cell::north(void)
+char Cell::north()
 {
-	unsigned yvalue;
-	yvalue = (offset.getY() > 0) ? (offset.getY() - 1) : (Ocean1->numRows - 1);
-	return Ocean1->cells[yvalue][offset.getX()];
+
+	if ((_offset.getY() <= 0) && (_owner.cells[_offset.getY() - 1][_offset.getX()]  == nullptr))//если  nullptr 
+	{
+		return DefaultImage;//координаты текущей точки
+	}
+	else
+	{
+		return _owner.cells[_offset.getY() - 1][_offset.getX()]->getImage();//координаты точки повыше
+	}
 }
 
-Cell* Cell::south(void)
+/*Cell* Cell::south()
 {
-	unsigned yvalue;
-
-	yvalue = (offset.getY() + 1) % Ocean1->numRows;
-	return Ocean1->cells[yvalue][offset.getX()];
+	if ((_offset.getY() + 1) == _owner.getNumRows())
+	{
+		return _owner.cells[_offset.getY()][_offset.getX()];
+	}
+	else
+	{
+		return _owner.cells[_offset.getY() + 1][_offset.getX()];
+	}
 }
 
 Cell* Cell::east(void)
 {
-	unsigned xvalue;
-
-	xvalue = (offset.getY() + 1) % Ocean1->numCols;
-	return Ocean1->cells[offset.getX()][xvalue];
+	if ((_offset.getX() + 1) == _owner.getNumCols())
+	{
+		return _owner.cells[_offset.getX()][_offset.getY()];
+	}
+	else
+	{
+		return _owner.cells[_offset.getX() + 1][_offset.getY()];
+	}
 }
 
 Cell* Cell::west(void)
 {
-	unsigned xvalue;
-	xvalue = (offset.getX() > 0) ? (offset.getX() - 1) : (Ocean1->numCols - 1);
-	return Ocean1->cells[offset.getY()][xvalue];
-}
+	if ((_offset.getX() - 1) < 0)
+	{
+		return _owner.cells[_offset.getX()][_offset.getY()];
+	}
+	else
+	{
+		return _owner.cells[_offset.getX() - 1][_offset.getY()];
+	}
+}*/
 
-Cell* Cell::reproduce(Coordinate anOffset)
+Cell* Cell::reproduce()
 {
-	Cell* temp = new Cell(anOffset);
+	Cell* temp = nullptr;
 	return temp;
 }
-
-void Cell::display(void)
-{
-	printf("%c", Image);
-}
-
 char Cell::getImage()
 {
-	return Image;
+	return _image;
 }
