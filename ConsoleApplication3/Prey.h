@@ -24,7 +24,7 @@ public:
 	virtual void process()
 	{
 		Coordinate toCoord;
-		toCoord = getEmptyNeighborCoord();
+		toCoord = getNeighborCoord(this);
 		moveFrom(_offset, toCoord);
 	}
 

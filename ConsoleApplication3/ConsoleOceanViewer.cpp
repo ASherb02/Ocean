@@ -34,7 +34,7 @@ void ConsoleOceanViewer::displayCells(unsigned _numRows, unsigned _numCols,Ocean
 	{
 		for (unsigned col = 0; col < _numCols; col++)
 		{
-			_cell = _owner->getCells(row,col);
+			_cell = _owner->getCell(row,col);
 			if (_cell == nullptr)
 			{
 				display(DefaultImage);

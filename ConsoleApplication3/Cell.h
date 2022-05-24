@@ -15,13 +15,9 @@ protected:
 	Cell* getCellAt(Coordinate aCoord);
 	void assignCellAt(Coordinate aCoord);
 	void assignCellAt(Coordinate aCoord, Cell* aCell);
-	Cell* getNeighborWithImage(char aImage);
-	Coordinate getEmptyNeighborCoord();
-	Coordinate getPreyNeighborCoord();
+	Coordinate getNeighborCoord(Cell*);
+	Cell* getPreyNeighborCoord(Cell*);
 	char north();
-	Coordinate south();
-	Coordinate east();
-	Coordinate west();
 	
 
 	//Обработка и отображение

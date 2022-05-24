@@ -28,7 +28,7 @@ void Ocean::initialize(Ocean&)
 
 void Ocean::initCell()
 {
-	addEmptyCells();
+	cleanGameField();
 	std::string temp;
 	/*std::cout << "\n\n Enter number of obstacles (default=75):";
 	std::cout.flush();
@@ -69,7 +69,7 @@ void Ocean::initCell()
 	
 }
 
-void Ocean::addEmptyCells()
+void Ocean::cleanGameField()
 {
 	for (unsigned int row = 0; row < numRows; row++)
 	{
@@ -141,22 +141,84 @@ void Ocean::run()
 
 	for (unsigned iteration = 0; iteration < numIterations; iteration++)
 	{
+		_visitor.clear();
+
 		if (numPredators > 0 && numPrey > 0)
 		{
 			for (unsigned row = 0; row < numRows; row++)
+			{
 				for (unsigned col = 0; col < numCols; col++)
 				{
-					cells[row][col]->process();
+					Cell* currentItem = cells[row][col];
+
+					if (!_visitor.isVisited(cells[row][col]) && currentItem != nullptr)
+					{
+						currentItem->process();
+						_visitor.visit(currentItem);
+					}
 				}
-					
-			viewOwner.displayStats(this->getNumObstacles(), this->getNumPrey(), iteration, this->getNumCols());
-			viewOwner.displayCells(this->getNumRows(), this->getNumCols(), this);
-			viewOwner.displayBorder(this->getNumCols());
-			std::cout.flush();
+			}
 		}
+		viewOwner.displayStats(this->getNumObstacles(), this->getNumPrey(), iteration, this->getNumCols());
+		std::cout << std::endl;
+		viewOwner.displayCells(this->getNumRows(), this->getNumCols(), this);
+		std::cout << std::endl;
+		viewOwner.displayBorder(this->getNumCols());
+		std::cout.flush();
 	}
 
 }
+Coordinate Ocean::north(Cell* center)
+{
+
+	unsigned yvalue;
+
+	yvalue = (center->getOffset().getY() > 0) ? (center->getOffset().getY() - 1) : numCols - 1;
+
+	Coordinate temp(center->getOffset().getX(), yvalue);
+
+	return temp;
+}
+
+Coordinate Ocean::south(Cell* center)
+{
+	unsigned yvalue;
+
+	yvalue = (center->getOffset().getY() + 1) % numCols;
+
+	Coordinate temp(center->getOffset().getX(), yvalue);
+
+	return temp;
+}
+
+Coordinate Ocean::east(Cell* center)
+{
+	unsigned xvalue;
+
+	xvalue = (center->getOffset().getX() + 1) % numCols;
+
+	Coordinate temp(xvalue, center->getOffset().getY());
+
+	return temp;
+}
+
+Coordinate Ocean::west(Cell* center)//TODO:Coordinate גלוסעמ Cell
+{
+	unsigned xvalue;
+
+	xvalue = (center->getOffset().getX() > 0) ? (center->getOffset().getX() - 1) : numCols - 1;
+
+	Coordinate temp(xvalue, center->getOffset().getY());
+
+	return temp;
+}
+
+void Ocean::swapCell(Coordinate& to, Coordinate& from, Cell* item)
+{
+	setCell(to, item);
+	cells[from.getY()][from.getX()] = nullptr;
+}
+
 /*char Ocean::getChar(Cell* SearchCell)
 {
    //Cell* SearchCell = cells [aCoord.getY()][aCoord.getX()];

@@ -28,24 +28,29 @@ public:
 
 	void process()
 	{
-		Coordinate toCoord;
-		if (--timeToFeed <= 0)//хищник умирает
+		if (--timeToFeed <= 0)
 		{
-			assignCellAt(_offset);
-			_owner.setNumPredators(_owner.getNumPredators() - 1);
+			assignCellAt(_offset, nullptr);
+			_owner.setNumPrey(_owner.getNumPrey() - 1);
 			delete this;
 		}
-		else//сьедает соседнюю добычу
+		else
 		{
-			toCoord = getPreyNeighborCoord();
-			if (toCoord != _offset)
+			if (getPreyNeighborCoord(this) != nullptr)
 			{
+				Coordinate to_coord = getPreyNeighborCoord(this)->getOffset();
 				_owner.setNumPrey(_owner.getNumPrey() - 1);
-				timeToFeed = TimeToFeed;
-				moveFrom(_offset, toCoord);
+				assignCellAt(to_coord, nullptr);
+				timeToFeed =TimeToFeed;
+				moveFrom(to_coord, _offset);
 			}
 			else
-				Prey::process();//перемещение в пустую €чейку
+			{
+				Coordinate to;
+
+				to = getNeighborCoord(this);
+				moveFrom(to, _offset);
+			}
 		}
 	}
 	char getImage()

@@ -16,94 +16,88 @@ void Cell::assignCellAt(Coordinate aCoord, Cell* aCell)
 	_owner.cells[aCoord.getY()][aCoord.getX()]=aCell;
 }
 
-// кол-во                                                      соседи
-/*int*/ Cell* Cell::getNeighborWithImage(char anImage /*, Cell* neighbors[4] */)
+                                                
+Coordinate Cell::getNeighborCoord(Cell* item)
 {
-	Cell* neighbors[4];
-	unsigned count = 0;
+	unsigned rand_world_side = rand() % 3 + 0;
 
-	if (anImage == north())//сравнивает image с image c кординатами north
-		neighbors[count++] = ;
-	/*if (anImage == west(this))
-		neighbors[count++] = this;
-	if (anImage == east(this))
-		neighbors[count++] = this;
-	if (anImage == south(this))
-		neighbors[count++] = ;*/
-	if (count == 0)
-		return this;
-	else
-		return neighbors[_owner.random.NextBetween(0, count - 1)];
-		
-}
-
-Coordinate Cell::getEmptyNeighborCoord()
-{
-	std::cout << "getEmptyNeighborCoord ";
-	std::cout << "X:" << this->_offset.getX() << " ";
-	std::cout << "Y:" << this->_offset.getY();
-
-	return getNeighborWithImage(DefaultImage)->getOffset();
-}
-
-Coordinate Cell::getPreyNeighborCoord()
-{
-	std::cout << ":getPreyNeighborCoord ";
-	std::cout << "image:" << this->_image<<" ";
-	std::cout<<"X:" << this->_offset.getX() << " ";
-	std::cout<<"Y:" << this->_offset.getY();
-
-	return getNeighborWithImage(DefaultPreyImage)->getOffset();
-}
-
-char Cell::north()
-{
-
-	if ((_offset.getY() <= 0) && (_owner.cells[_offset.getY() - 1][_offset.getX()]  == nullptr))//если  nullptr 
+	switch (rand_world_side)
 	{
-		return DefaultImage;//координаты текущей точки
+	case 0:
+	{
+		Coordinate temp(_owner.north(item).getX(), _owner.north(item).getY());
+
+		return temp;
+		break;
 	}
-	else
+	case 1:
 	{
-		return _owner.cells[_offset.getY() - 1][_offset.getX()]->getImage();//координаты точки повыше
+		Coordinate temp(_owner.south(item).getX(), _owner.south(item).getY());
+
+		return temp;
+		break;
+	}
+	case 2:
+	{
+		Coordinate temp(_owner.east(item).getX(), _owner.east(item).getY());
+
+		return temp;
+		break;
+	}
+	case 3:
+	{
+		Coordinate temp(_owner.west(item).getX(), _owner.west(item).getY());
+
+		return temp;
+		break;
+	}
+	default:
+	{
+		break;
+	}
 	}
 }
 
-/*Cell* Cell::south()
-{
-	if ((_offset.getY() + 1) == _owner.getNumRows())
-	{
-		return _owner.cells[_offset.getY()][_offset.getX()];
-	}
-	else
-	{
-		return _owner.cells[_offset.getY() + 1][_offset.getX()];
-	}
-}
 
-Cell* Cell::east(void)
+Cell* Cell::getPreyNeighborCoord(Cell* item)
 {
-	if ((_offset.getX() + 1) == _owner.getNumCols())
+	Cell* temp = _owner.getCell(_owner.east(item).getY(), _owner.east(item).getX());
+	if (temp != nullptr)
 	{
-		return _owner.cells[_offset.getX()][_offset.getY()];
-	}
-	else
-	{
-		return _owner.cells[_offset.getX() + 1][_offset.getY()];
-	}
-}
+		if (temp->getImage() == DefaultPreyImage)
+		{
+			return temp;
+		}
 
-Cell* Cell::west(void)
-{
-	if ((_offset.getX() - 1) < 0)
-	{
-		return _owner.cells[_offset.getX()][_offset.getY()];
 	}
-	else
+	temp = _owner.getCell(_owner.east(item).getY(), _owner.east(item).getX());
+
+	if (temp != nullptr)
 	{
-		return _owner.cells[_offset.getX() - 1][_offset.getY()];
+		if (temp->getImage() == DefaultPreyImage)
+		{
+			return temp;
+		}
 	}
-}*/
+	temp = _owner.getCell(_owner.east(item).getY(), _owner.east(item).getX());
+	if (temp != nullptr)
+	{
+		if (temp->getImage() == DefaultPreyImage)
+		{
+			return temp;
+		}
+	}
+	temp = _owner.getCell(_owner.east(item).getY(), _owner.east(item).getX());
+	if (temp != nullptr)
+	{
+		if (temp->getImage() == DefaultPreyImage)
+		{
+			return temp;
+		}
+	}
+
+	return nullptr;
+}
 
 Cell* Cell::reproduce()
 {

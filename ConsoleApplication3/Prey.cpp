@@ -1,22 +1,26 @@
 #include "Prey.h"
-
+#include <iostream>
 void Prey::moveFrom(Coordinate from, Coordinate to)
 {
 	Cell* toCell;
 	--timeToReproduce;
 	if (to != from)
 	{
-		toCell = getCellAt(to);
-		delete toCell;
-		setOffset(to);
-		assignCellAt(to);
+		if (_owner.getCell(to) == nullptr)
+		{
+			this->setOffset(to);
+			_owner.swapCell(to, from, this);
+		}
+		std::cout.flush();
 		if (timeToReproduce <= 0)
 		{
 			timeToReproduce = TimeToReproduce;
-			assignCellAt(from, reproduce(from));
+			reproduce(from);
 		}
 		else
-			assignCellAt(from,this);
+		{
+			assignCellAt(from, nullptr);
+		}
 	}
 }
 
