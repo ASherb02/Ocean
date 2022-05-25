@@ -17,12 +17,16 @@ void ConsoleOceanViewer::displayBorder(unsigned _NumCols)
 	std::cout << "\n";
 }
 
-void ConsoleOceanViewer::displayStats(unsigned _numObstacles, unsigned _numPrey,unsigned _iteration,unsigned _numCols)
+void ConsoleOceanViewer::displayStats(unsigned _numObstacles, unsigned _numPredators,unsigned _numPrey,unsigned _iteration,unsigned _numCols)
 {
 	std::cout << "\n\n";
 	std::cout << "Iteration number" << ++_iteration;
+	std::cout << std::endl;
 	std::cout << "Obstacles:" << _numObstacles;
-	std::cout << "Predators:" << _numPrey << "\n";
+	std::cout << std::endl;
+	std::cout << "Prey:" << _numPrey;
+	std::cout << std::endl;
+	std::cout << "Predators:" << _numPredators << "\n";
 	std::cout.flush();
 	displayBorder(_numCols);
 }

@@ -14,7 +14,7 @@ class Visitor;
 class Ocean
 {
 	// TODO: Убрать friend class
-	friend class Cell;
+	//friend class Cell;
 
 private:
 	unsigned numRows;

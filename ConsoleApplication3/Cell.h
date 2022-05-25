@@ -12,7 +12,7 @@ protected:
 	char _image;
 
 	//Поиск соседей
-	Cell* getCellAt(Coordinate aCoord);
+	Cell* getCellAt(Coordinate,Ocean*);
 	void assignCellAt(Coordinate aCoord);
 	void assignCellAt(Coordinate aCoord, Cell* aCell);
 	Coordinate getNeighborCoord(Cell*);

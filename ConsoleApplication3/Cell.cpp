@@ -2,18 +2,14 @@
 #include <iostream>
 
 //поиск соседей
-Cell* Cell::getCellAt(Coordinate aCoord)
+Cell* Cell::getCellAt(Coordinate aCoord,Ocean* _owner)
 {
-	return _owner.cells[aCoord.getY()][aCoord.getX()];
+	return _owner->getCell(aCoord);
 }
 
-void Cell::assignCellAt(Coordinate aCoord)
+void Cell::assignCellAt(Coordinate aCoord, Cell* _aCell)
 {
-	_owner.cells[aCoord.getY()][aCoord.getX()] = nullptr;
-}
-void Cell::assignCellAt(Coordinate aCoord, Cell* aCell)
-{
-	_owner.cells[aCoord.getY()][aCoord.getX()]=aCell;
+	_owner.setCell(aCoord, _aCell);
 }
 
                                                 

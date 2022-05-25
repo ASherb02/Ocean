@@ -6,12 +6,12 @@ class Predator :public Prey
 {
 private:
 	//Обработка и отображение
-	virtual Cell* reproduce(Coordinate anOffset)
+	void reproduce(Coordinate an_offset)
 	{
-		Predator* temp = new Predator(anOffset, &_owner);
-		_owner.setNumPredators(_owner.getNumPredators());
-		return (Cell*)temp;
-	};
+		Predator* temp = new Predator(an_offset, &_owner);
+		_owner.setNumPredators(_owner.getNumPredators() + 1);
+		assignCellAt(an_offset, temp);
+	}
 
 protected:
 	unsigned timeToFeed;
@@ -53,6 +53,29 @@ public:
 			}
 		}
 	}
+	void moveFrom (Coordinate to, Coordinate from)
+	{
+		--timeToReproduce;
+		if (to != from)
+		{
+			if (_owner.getCell(to) == nullptr)
+			{
+				this->setOffset(to);
+				_owner.swapCell(to, from, this);
+			}
+			std::cout.flush();
+			if (timeToReproduce <= 0)
+			{
+				timeToReproduce = TimeToReproduce;
+				reproduce(from);
+			}
+			else
+			{
+				assignCellAt(from, nullptr);
+			}
+		}
+	}
+	
 	char getImage()
 	{
 		return _image;

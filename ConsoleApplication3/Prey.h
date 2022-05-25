@@ -9,7 +9,7 @@ protected:
 
 	//Обработка и отображение
 	void moveFrom(Coordinate from, Coordinate to);
-	virtual Cell* reproduce(Coordinate anOffset);
+	virtual void reproduce(Coordinate anOffset);
 
 public:
 	Prey(Coordinate& aCoord,Ocean* owner) :Cell(aCoord,owner)

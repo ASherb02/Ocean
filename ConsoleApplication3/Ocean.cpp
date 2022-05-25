@@ -37,7 +37,7 @@ void Ocean::initCell()
 	if (numObstacles == size)numObstacles = size;
 	std::cout << "\nNumber obstacles accepted = " << numObstacles;
 	std::cout.flush();*/
-	numObstacles = 10;
+	numObstacles = 50;
 
 	/*std::cout << "\n\n Enter number of predators (default=20):";
 	std::cout.flush();
@@ -47,7 +47,7 @@ void Ocean::initCell()
 		numPredators = size - numObstacles;
 	std::cout << "\nNumber predators accepted = " << numPredators;
 	std::cout.flush();*/
-	numPredators = 20;
+	numPredators = 30;
 	/*
 	std::cout << "\n\n Enter number of prey(default = 150):";
 	std::cout.flush();
@@ -58,12 +58,12 @@ void Ocean::initCell()
 	std::cout << "\nNumber prey accepted =" << numPrey<<"\n\n";
 	std::cout.flush();
 	*/
-	numPrey = 10;
+	numPrey = 150;
 	addObstacles();
 	addPredators();
 	addPrey();
 	
-	viewOwner.displayStats(this->getNumObstacles(),this->getNumPrey(),-1,this->getNumCols());
+	viewOwner.displayStats(this->getNumObstacles(),this->getNumPredators(),this->getNumPrey(),-1,this->getNumCols());
 	viewOwner.displayCells(this->getNumRows(),this->getNumCols(),this);
 	viewOwner.displayBorder(this->getNumCols());
 	
@@ -159,10 +159,8 @@ void Ocean::run()
 				}
 			}
 		}
-		viewOwner.displayStats(this->getNumObstacles(), this->getNumPrey(), iteration, this->getNumCols());
-		std::cout << std::endl;
+		viewOwner.displayStats(this->getNumObstacles(),this->getNumPredators(), this->getNumPrey(), iteration, this->getNumCols());
 		viewOwner.displayCells(this->getNumRows(), this->getNumCols(), this);
-		std::cout << std::endl;
 		viewOwner.displayBorder(this->getNumCols());
 		std::cout.flush();
 	}

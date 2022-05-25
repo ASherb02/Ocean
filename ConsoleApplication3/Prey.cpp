@@ -24,9 +24,9 @@ void Prey::moveFrom(Coordinate from, Coordinate to)
 	}
 }
 
-Cell* Prey::reproduce(Coordinate anOffset)
+ void Prey::reproduce(Coordinate anOffset)
 {
 	Prey* temp = new Prey(anOffset, &_owner );
 	_owner.setNumPrey(_owner.getNumPrey() + 1);
-	return (Cell*)temp;
+	assignCellAt(anOffset, temp);
 }
