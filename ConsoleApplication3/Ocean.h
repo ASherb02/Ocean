@@ -2,51 +2,68 @@
 #define OceanDefined
 #include "Constants.h"
 #include "Coordinate.h"
+#include "ConsoleOceanViewer.h"
 #include "Random.h"
-#pragma once
+#include "Visitor.h"
+
 
 class Cell;
 
+class Visitor;
+
 class Ocean
 {
-	friend class Cell;
 
 private:
 	unsigned numRows;
 	unsigned numCols;
-	unsigned size;//numRows*numCols
+	unsigned size;
 	unsigned numPrey;
 	unsigned numPredators;
 	unsigned numObstacles;
 	Random random;
 	Cell* cells[MaxRows][MaxCols];
+	ConsoleOceanViewer viewOwner;
+	Visitor _visitor;
 		
     //Инициализация
 	void initCell();
-	void addEmptyCells();
+	void cleanGameField();
 	void addObstacles();
-	//void addPredators();
+	void addPredators();
 	void addPrey();
 	Coordinate getEmptyCellCoord();
 
-	//Отображение
-	void displayBorder();
-	void displayCells();
-	void displayStats(int);
-
 public:
 
+	Ocean() : _visitor(MaxRows* MaxCols)
+	{
+
+	}
+	void swapCell(Coordinate&, Coordinate&, Cell*);
+	void setCell(Coordinate& a_coord, Cell* a_cell);
 	//Доступ
-	unsigned getNumPrey(void) { return numPrey; }
-	unsigned getNumPredators(void) { return numPredators; }
-	void setNumPrey(unsigned aNumber) { numPrey = aNumber; }
-	void setNumPredators(unsigned aNumber) { numPredators = aNumber; }
+	unsigned getNumPrey();
+	unsigned getNumPredators();
+	unsigned getNumCols();
+	unsigned getNumRows();
+	unsigned getNumObstacles();
+	Cell* getCell(Coordinate a_coord);
+	Cell* getCell(unsigned _Rows, unsigned _Cols);
+	void setNumPrey(unsigned aNumber);
+	void setNumPredators(unsigned aNumber);
+	//char getChar(Coordinate);
+	Coordinate north(Cell*);
+	Coordinate west (Cell*);
+	Coordinate south(Cell*);
+	Coordinate east (Cell*);
+
 
 	//Инициализация
-	void initialize(void);
+	void initialize(Ocean&);
 
 	//Запуск
-	void run(void);
+	void run();
 
 };
 #endif // !OceanDefined

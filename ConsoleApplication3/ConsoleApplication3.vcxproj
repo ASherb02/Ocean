@@ -24,6 +24,7 @@
     <ProjectGuid>{8fff2f21-fcf8-4877-9452-2e2cd398e0d5}</ProjectGuid>
     <RootNamespace>ConsoleApplication3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Ocean</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -141,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="ConsoleApplication3.cpp" />
+    <ClCompile Include="ConsoleOceanViewer.cpp" />
     <ClCompile Include="Coordinate.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Ocean.cpp" />
@@ -150,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="ConsoleOceanViewer.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Coordinate.h" />
     <ClInclude Include="Obstacle.h" />
@@ -157,6 +160,7 @@
     <ClInclude Include="Predator.h" />
     <ClInclude Include="Prey.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Visitor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
