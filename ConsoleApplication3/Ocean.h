@@ -13,13 +13,11 @@ class Visitor;
 
 class Ocean
 {
-	// TODO: Убрать friend class
-	//friend class Cell;
 
 private:
 	unsigned numRows;
 	unsigned numCols;
-	unsigned size;//numRows*numCols
+	unsigned size;
 	unsigned numPrey;
 	unsigned numPredators;
 	unsigned numObstacles;
@@ -43,47 +41,17 @@ public:
 
 	}
 	void swapCell(Coordinate&, Coordinate&, Cell*);
-	void setCell(Coordinate& a_coord, Cell* a_cell)
-	{
-		cells[a_coord.getY()][a_coord.getX()] = a_cell;
-	}
+	void setCell(Coordinate& a_coord, Cell* a_cell);
 	//Доступ
-	unsigned getNumPrey() 
-	{
-		return numPrey; 
-	}
-	unsigned getNumPredators() 
-	{ 
-		return numPredators;
-	}
-	unsigned getNumCols() 
-	{
-		return numCols;
-	}
-	unsigned getNumRows() 
-	{
-		return numRows;
-	}
-	unsigned getNumObstacles() 
-	{
-		return numObstacles; 
-	}
-	Cell* getCell(Coordinate a_coord)
-	{
-		return cells[a_coord.getY()][a_coord.getX()];
-	}
-	Cell* getCell(unsigned _Rows, unsigned _Cols) 
-	{
-		return cells[_Rows][_Cols]; 
-	}
-	void setNumPrey(unsigned aNumber)
-	{
-		numPrey = aNumber; 
-	}
-	void setNumPredators(unsigned aNumber) 
-	{
-		numPredators = aNumber;
-	}
+	unsigned getNumPrey();
+	unsigned getNumPredators();
+	unsigned getNumCols();
+	unsigned getNumRows();
+	unsigned getNumObstacles();
+	Cell* getCell(Coordinate a_coord);
+	Cell* getCell(unsigned _Rows, unsigned _Cols);
+	void setNumPrey(unsigned aNumber);
+	void setNumPredators(unsigned aNumber);
 	//char getChar(Coordinate);
 	Coordinate north(Cell*);
 	Coordinate west (Cell*);

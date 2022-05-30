@@ -217,15 +217,51 @@ void Ocean::swapCell(Coordinate& to, Coordinate& from, Cell* item)
 	cells[from.getY()][from.getX()] = nullptr;
 }
 
-/*char Ocean::getChar(Cell* SearchCell)
+unsigned Ocean::getNumPrey()
 {
-   //Cell* SearchCell = cells [aCoord.getY()][aCoord.getX()];
-    if (SearchCell == nullptr) 
-    {
-        return DefaultImage;
-    }
-    else 
-    {
-        return SearchCell->getImage();
-    }
-}*/
+	return numPrey;
+}
+
+unsigned Ocean::getNumPredators()
+{
+	return numPredators;
+}
+
+unsigned Ocean::getNumCols()
+{
+	return numCols;
+}
+
+unsigned Ocean::getNumRows()
+{
+	return numRows;
+}
+
+unsigned Ocean::getNumObstacles()
+{
+	return numObstacles;
+}
+
+Cell* Ocean::getCell(Coordinate a_coord)
+{
+	return cells[a_coord.getY()][a_coord.getX()];
+}
+
+Cell* Ocean::getCell(unsigned _Rows, unsigned _Cols)
+{
+	return cells[_Rows][_Cols];
+}
+
+void Ocean::setNumPrey(unsigned aNumber)
+{
+	numPrey = aNumber;
+}
+
+void Ocean::setNumPredators(unsigned aNumber)
+{
+	numPredators = aNumber;
+}
+void Ocean::setCell(Coordinate& a_coord, Cell* a_cell)
+{
+	cells[a_coord.getY()][a_coord.getX()] = a_cell;
+}
